@@ -37,13 +37,16 @@ void Insert(int data , int n){
 
 // 打印链表中的所有节点数据
 void Print(void){
-    struct Node* temp = head;
-    printf("List is: ");
+    struct Node* temp = head;  // 创建临时指针指向链表头节点，避免修改全局head指针
+    printf("List is: ");       // 打印提示信息
+    
+    // 遍历链表直到末尾（temp为NULL）
     while(temp != NULL){
-        printf("%d " , temp -> data);
-        temp = temp -> next;
+        printf("%d " , temp -> data);  // 打印当前节点的数据
+        temp = temp -> next;           // 移动到下一个节点
     }
-    printf("\n");
+    
+    printf("\n");  // 打印换行符，使输出更美观
 }
 
 // 主函数，测试链表操作
