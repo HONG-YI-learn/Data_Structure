@@ -81,4 +81,5 @@ int main(void){
     printf("逆序打印：");
     ReversePrint(head);  // 逆序打印链表
     printf("\n");        // 打印换行符
+    return 0;
 }

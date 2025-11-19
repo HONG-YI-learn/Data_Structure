@@ -93,4 +93,5 @@ int main(){
     head = Reverse(head);  // 反转链表，接收返回的新头指针
 
     Print(head);  // 打印反转后的链表
+    return 0;
 }

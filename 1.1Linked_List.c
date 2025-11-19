@@ -36,5 +36,5 @@ int main(){
         head = Insert(head , x);
         Print(head);
     }
-
+    return 0;
 }

@@ -88,4 +88,5 @@ int main(){
     Reverse();  // 反转链表
 
     Print();  // 打印反转后的链表
+    return 0;
 }

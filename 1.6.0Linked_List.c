@@ -94,4 +94,5 @@ int main(void){
     
     printf("反转后：");
     Print();           // 打印反转后的链表: 4 3 2 1 0
+    return 0;
 }
