@@ -1,3 +1,4 @@
+//通义：用链表模拟栈实现检查符号的匹配性
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -56,6 +57,19 @@ bool isEmpty(Stack* stack) {
     return stack->top == NULL;
 }
 
+// 销毁栈并释放所有内存
+// 参数: stack - 要销毁的栈指针
+void destroyStack(Stack* stack) {
+    // 释放所有节点内存
+    StackNode* node = stack->top;
+    while (node != NULL) {
+        StackNode* temp = node;     // 临时保存当前节点
+        node = node->next;          // 移动到下一个节点
+        free(temp);                 // 释放当前节点
+    }
+    free(stack);                    // 释放栈结构体本身
+}
+
 // 判断两个括号是否匹配
 // 参数: opening - 左括号, closing - 右括号
 // 返回值: true表示匹配，false表示不匹配
@@ -86,27 +100,13 @@ bool isBalanced(const char* expression) {
         else if (current == ')' || current == ']' || current == '}') {
             // 栈为空说明没有对应的左括号，出现不匹配
             if (isEmpty(stack)) {
-                // 释放栈内存
-                StackNode* node = stack->top;
-                while (node != NULL) {
-                    StackNode* temp = node;
-                    node = node->next;
-                    free(temp);
-                }
-                free(stack);
+                free(stack);           // 栈为空时只需释放栈结构体
                 return false;
             }
             // 弹出栈顶元素并检查是否与当前右括号匹配
             char top = pop(stack);
             if (!isMatchingPair(top, current)) {
-                // 括号类型不匹配，释放剩余栈内存并返回false
-                StackNode* node = stack->top;
-                while (node != NULL) {
-                    StackNode* temp = node;
-                    node = node->next;
-                    free(temp);
-                }
-                free(stack);
+                destroyStack(stack);   // 栈非空且不匹配时需要释放所有节点
                 return false;
             }
         }
@@ -115,17 +115,8 @@ bool isBalanced(const char* expression) {
     
     // 检查是否还有未匹配的左括号
     bool result = isEmpty(stack);
-    
-    // 释放栈内存
-    StackNode* node = stack->top;
-    while (node != NULL) {
-        StackNode* temp = node;
-        node = node->next;
-        free(temp);
-    }
-    free(stack);
-    
-    return result;  // 栈为空表示所有括号都已正确匹配
+    destroyStack(stack);                      // 释放栈内存
+    return result;                            // 栈为空表示所有括号都已正确匹配
 }
 
 // 主函数 - 测试括号匹配功能
